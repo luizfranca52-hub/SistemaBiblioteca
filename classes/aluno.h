@@ -1,6 +1,7 @@
 #ifndef ALUNO_H
 #define ALUNO_H
 #include <string>
+#include "usuario.h"
 
 class aluno : public usuario{
         protected: 

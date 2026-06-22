@@ -4,7 +4,7 @@
 
 class livro{
     private: 
-    int id;
+    int chave;
     std::string título;
     std::string autor;
     bool disponibilidade;
@@ -12,6 +12,7 @@ class livro{
     public: 
     livro(std::string _nome, std::string _autor); 
     ~livro();
+
 
     //sobrecarga de operadores aqui?
 };

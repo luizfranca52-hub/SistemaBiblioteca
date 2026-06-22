@@ -1,6 +1,7 @@
 #ifndef ADMINISTRADOR_H
 #define ADMINISTRADOR_H
 #include <string>
+#include "usuario.h"
 
 class administrador : public usuario{
     private:
