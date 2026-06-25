@@ -5,7 +5,6 @@ using namespace std;
 TabelaHash::TabelaHash(int capacidadeInicial) {
     capacidade = capacidadeInicial;
     quantidade = 0;
-
     tabela = new Entrada[capacidade];
 }
 
@@ -33,27 +32,29 @@ void TabelaHash::redimensionar(int novaCapacidade) {
     quantidade = 0;
     for (int i = 0; i < capacidadeAntiga; i++) {
         if (tabelaAntiga[i].getEstado() == OCUPADO) {
-            inserir(tabelaAntiga[i].getChave());
+            inserir(tabelaAntiga[i].getLivro());
         }
     }
     delete[] tabelaAntiga;
 }
 
-void TabelaHash::inserir(const std::string& livro) {
+void TabelaHash::inserir(const Livro& livro) {
     if (alfa() > 0.5) {
         redimensionar(capacidade * 2);
     }
-    int indice = hash(livro);
+    int indice = hash(livro.getTitulo());
     for (int i = 0; i < capacidade; i++) {
         int posicao = (indice + i) % capacidade;
         if (tabela[posicao].getEstado() == LIVRE || tabela[posicao].getEstado() == REMOVIDO) {
-            tabela[posicao].setChave(livro);
+            tabela[posicao].setChave(livro.getTitulo());
+            tabela[posicao].setLivro(livro);
             tabela[posicao].setEstado(OCUPADO);
             quantidade++;
             return;
         }
 
-        if (tabela[posicao].getEstado() == OCUPADO && tabela[posicao].getChave() == livro) {
+        if (tabela[posicao].getEstado() == OCUPADO && tabela[posicao].getChave() == livro.getTitulo()) {
+            tabela[posicao].setLivro(livro); 
             return;
         }
     }
@@ -80,27 +81,26 @@ void TabelaHash::remover(const std::string& livro) {
     }
 }
 
-bool TabelaHash::buscar(const std::string& livro) const {
+Livro* TabelaHash::buscar(const std::string& livro) const {
     int indice = hash(livro);
 
     for (int i = 0; i < capacidade; i++) {
         int posicao = (indice + i) % capacidade;
         if (tabela[posicao].getEstado() == LIVRE) {
-            return false;
+            return nullptr;
         }
         if (tabela[posicao].getEstado() == OCUPADO && tabela[posicao].getChave() == livro) {
-
-            return true;
+            return &(const_cast<Entrada*>(tabela)[posicao].getLivro());
         }
     }
-
-    return false;
+    return nullptr;
 }
 
-void TabelaHash::imprimir() const{
+void TabelaHash::imprimir() const {
     for (int i = 0; i < capacidade; i++) {
         if(tabela[i].getEstado() == OCUPADO){ 
-            cout << tabela[i].getChave() << endl;
+            Livro l = tabela[i].getLivro();
+            cout << "Titulo: " << l.getTitulo() << " | Autor: " << l.getAutor() << " | Status: " << (l.isDisponivel() ? "Disponivel" : "Emprestado") << endl;
         }
     }
 }

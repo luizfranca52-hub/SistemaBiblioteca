@@ -1,1 +1,7 @@
-Diria que nossos próximos objetivos devem ser classe de estado dinâmico, e pensar em quais comportamentos queremos imolementar, principalmente nas classes relativas a pessoas
+Instruções da hashtable: 
+    Livro novo1("Harry Potter", "JK Rowling");
+    minhaTabela.inserir(novo1); // Insere na tabela
+    gerenciador.salvarHashNoArquivo(minhaTabela); //sobe a tabela para o arquivo
+
+    
+    TabelaHash minhaTabela;

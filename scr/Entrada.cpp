@@ -20,3 +20,11 @@ void Entrada::setEstado(Estado estado) {
 Estado Entrada::getEstado() const {
     return estado;
 }
+
+Livro& Entrada::getLivro() {
+    return livro;
+}
+
+void Entrada::setLivro(const Livro& l) {
+    this->livro = l;
+}

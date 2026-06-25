@@ -1,27 +1,24 @@
 #ifndef ENTRADA_H
 #define ENTRADA_H
 
-#include <string>
+#include "Livro.h"
 
-enum Estado {
-    LIVRE,
-    OCUPADO,
-    REMOVIDO
-};
+enum Estado { LIVRE, OCUPADO, REMOVIDO };
 
 class Entrada {
 private:
     std::string chave;
+    Livro livro;
     Estado estado;
 
 public:
     Entrada();
-
-    void setChave(const std::string& chave);
     std::string getChave() const;
-
-    void setEstado(Estado estado);
+    void setChave(const std::string& c);
+    Livro& getLivro(); 
+    void setLivro(const Livro& l);
     Estado getEstado() const;
+    void setEstado(Estado e);
 };
 
 #endif
